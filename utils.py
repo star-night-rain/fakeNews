@@ -51,21 +51,15 @@ def getNews(query):
 
 
 def enrich_knowledge(news, use_search):
-    # client = OpenAI(
-    #     base_url="https://ark.cn-beijing.volces.com/api/v3/bots",
-    #     api_key="8e704977-78ae-40e3-8f3a-7d3fa3f8edb4",
-    # )
-
     client = OpenAI(
         base_url="https://api.deepseek.com",
-        api_key="sk-3ee1d45f80ac4a25acbb367f638002cb",
+        api_key="",
     )
 
     not_search_content = "你是一位专业的事实核查助手，负责从新闻中提取关键信息，并识别其中可能存在的事实错误或逻辑问题。注意，不能使用markdown格式回答。"
     search_content = "你是一位专业的事实核查助手，负责从新闻中提取关键信息，并识别其中可能存在的事实错误或逻辑问题。你可以通过联网搜索获取当前时间及其他必要的事实信息，并应优先参考搜索结果进行回答。注意，回答内容不得使用 Markdown 格式。"
 
     response = client.chat.completions.create(
-        # model="bot-20250409201752-rl95z",
         model="deepseek-chat",
         messages=[
             {
@@ -179,18 +173,12 @@ def explain(news, label, use_search):
         f"新闻内容: {news}"
     )
 
-    # client = OpenAI(
-        # base_url="https://ark.cn-beijing.volces.com/api/v3/bots",
-        # api_key="8e704977-78ae-40e3-8f3a-7d3fa3f8edb4",
-    # )
-
     client = OpenAI(
         base_url="https://api.deepseek.com",
-        api_key="sk-3ee1d45f80ac4a25acbb367f638002cb",
+        api_key="",
     )
 
     response = client.chat.completions.create(
-        # model="bot-20250409201752-rl95z",
         model="deepseek-chat",
         messages=[
             {
@@ -218,7 +206,7 @@ def explain(news, label, use_search):
 def multimodal_check(news, url):
     client = OpenAI(
         base_url="https://ark.cn-beijing.volces.com/api/v3/bots",
-        api_key="8e704977-78ae-40e3-8f3a-7d3fa3f8edb4",
+        api_key="",
     )
 
     response = client.chat.completions.create(
@@ -257,7 +245,7 @@ def multimodal_check(news, url):
 def multimodal_explanation(news, url):
     client = OpenAI(
         base_url="https://ark.cn-beijing.volces.com/api/v3/bots",
-        api_key="8e704977-78ae-40e3-8f3a-7d3fa3f8edb4",
+        api_key="",
     )
 
     response = client.chat.completions.create(
