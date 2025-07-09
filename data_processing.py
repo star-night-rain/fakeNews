@@ -4,17 +4,13 @@ from datetime import datetime
 from utils import enrich_knowledge
 
 
-def get_json():
-    df = pd.read_csv("./training-data.csv", sep=",", encoding="utf-8")
+def get_json(dataset_name):
+    df = pd.read_csv(f"./dataset/{dataset_name}.csv", sep=",", encoding="utf-8")
     df = df[df["label"].isin(["谣言", "事实"])]
     with open("./data.json", "r", encoding="utf-8") as file:
         datas = json.load(file)
-    cnt = 0
     for index, row in df.iterrows():
         if pd.isna(row["title"]) or pd.isna(row["content"]):
-            cnt += 1
-            if cnt <= 1500:
-                continue
             data = {}
             data["id"] = len(datas) + 1
 
@@ -50,14 +46,10 @@ def get_json():
             data["issues"] = response["issues"]
 
             datas.append(data)
-            with open("data.json", "w", encoding="utf-8") as file:
+            with open(f"./dataset/{dataset_name}.json", "w", encoding="utf-8") as file:
                 json.dump(datas, file, ensure_ascii=False, indent=4)
-
-            if cnt >= 2400:
-                break
-
-    print(f"cnt:{cnt}")
 
 
 if __name__ == "__main__":
-    get_json()
+    get_json("training")
+    get_json("test")

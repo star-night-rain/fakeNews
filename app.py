@@ -31,16 +31,17 @@ def scratch_news():
 
 
 @app.post("/news/pic/check")
-def check_news():
+def multimodal_check_news():
     query = request.get_json()
     return flask_response(multimodalChecking(query))
 
 
 @app.post("/news/pic/explain")
-def explain_news():
+def multimodal_explain_news():
     query = request.get_json()
-    return flask_response(explainNews(query))
+    return flask_response(multimodal_explanation(query))
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
+

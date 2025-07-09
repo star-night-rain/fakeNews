@@ -51,16 +51,22 @@ def getNews(query):
 
 
 def enrich_knowledge(news, use_search):
+    # client = OpenAI(
+    #     base_url="https://ark.cn-beijing.volces.com/api/v3/bots",
+    #     api_key="8e704977-78ae-40e3-8f3a-7d3fa3f8edb4",
+    # )
+
     client = OpenAI(
-        base_url="https://ark.cn-beijing.volces.com/api/v3/bots",
-        api_key="8e704977-78ae-40e3-8f3a-7d3fa3f8edb4",
+        base_url="https://api.deepseek.com",
+        api_key="sk-3ee1d45f80ac4a25acbb367f638002cb",
     )
 
     not_search_content = "你是一位专业的事实核查助手，负责从新闻中提取关键信息，并识别其中可能存在的事实错误或逻辑问题。注意，不能使用markdown格式回答。"
     search_content = "你是一位专业的事实核查助手，负责从新闻中提取关键信息，并识别其中可能存在的事实错误或逻辑问题。你可以通过联网搜索获取当前时间及其他必要的事实信息，并应优先参考搜索结果进行回答。注意，回答内容不得使用 Markdown 格式。"
 
     response = client.chat.completions.create(
-        model="bot-20250409201752-rl95z",
+        # model="bot-20250409201752-rl95z",
+        model="deepseek-chat",
         messages=[
             {
                 "role": "system",
@@ -173,13 +179,19 @@ def explain(news, label, use_search):
         f"新闻内容: {news}"
     )
 
+    # client = OpenAI(
+        # base_url="https://ark.cn-beijing.volces.com/api/v3/bots",
+        # api_key="8e704977-78ae-40e3-8f3a-7d3fa3f8edb4",
+    # )
+
     client = OpenAI(
-        base_url="https://ark.cn-beijing.volces.com/api/v3/bots",
-        api_key="8e704977-78ae-40e3-8f3a-7d3fa3f8edb4",
+        base_url="https://api.deepseek.com",
+        api_key="sk-3ee1d45f80ac4a25acbb367f638002cb",
     )
 
     response = client.chat.completions.create(
-        model="bot-20250409201752-rl95z",
+        # model="bot-20250409201752-rl95z",
+        model="deepseek-chat",
         messages=[
             {
                 "role": "system",
@@ -304,7 +316,7 @@ def extract_keywords(news):
 # response = explain(news, label, use_search)
 # print(response)
 
-news = "雷军 张磊 俞敏洪：坚持长期主义，伟大需要时间的沉淀和积累"
-url = "https://cn.bing.com/images/search?view=detailV2&ccid=ZItTWANY&id=2A8171508BA0E36D0EC36A42669411FF8CE3579D&thid=OIP.ZItTWANYdG_qr0ql_2g4kAHaE8&mediaurl=https%3A%2F%2Fimage.c114.com.cn%2F20201231074626.jpg&exph=1280&expw=1920&q=%E9%9B%B7%E5%86%9B&simid=608005733423871393&FORM=IRPRST&ck=EE1FE1736A8FBBD195AA4E7905B44DBD&selectedIndex=12&itb=0&cw=1289&ch=698&ajaxhist=0&ajaxserp=0"
-response = multimodal_explanation(news, url)
-print(response)
+# news = "雷军 张磊 俞敏洪：坚持长期主义，伟大需要时间的沉淀和积累"
+# url = "https://cn.bing.com/images/search?view=detailV2&ccid=ZItTWANY&id=2A8171508BA0E36D0EC36A42669411FF8CE3579D&thid=OIP.ZItTWANYdG_qr0ql_2g4kAHaE8&mediaurl=https%3A%2F%2Fimage.c114.com.cn%2F20201231074626.jpg&exph=1280&expw=1920&q=%E9%9B%B7%E5%86%9B&simid=608005733423871393&FORM=IRPRST&ck=EE1FE1736A8FBBD195AA4E7905B44DBD&selectedIndex=12&itb=0&cw=1289&ch=698&ajaxhist=0&ajaxserp=0"
+# response = multimodal_explanation(news, url)
+# print(response)

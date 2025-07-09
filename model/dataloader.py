@@ -75,9 +75,10 @@ class NewsDataset(Dataset):
         }
 
 
-def load_data(seed=3759, train_ratio=0.7, val_ratio=0.2, batch_size=1):
-    tokenizer = AutoTokenizer.from_pretrained("bert-base-chinese")
-    with open("./data.json", "r", encoding="utf-8") as file:
+# load training data
+def load_training_data(pretrained_model_file,seed=3759, train_ratio=0.7, val_ratio=0.2, batch_size=8):
+    tokenizer = AutoTokenizer.from_pretrained(pretrained_model_file, local_files_only=True)
+    with open("./dataset/training.json", "r", encoding="utf-8") as file:
         data = json.load(file)
 
     dataset = NewsDataset(data, tokenizer)
@@ -118,6 +119,14 @@ def load_data(seed=3759, train_ratio=0.7, val_ratio=0.2, batch_size=1):
 
     return train_dataloader, val_dataloader, test_dataloader
 
+# load test data
+def load_test_data(pretrained_model_file,batch_size=8):
+    tokenizer = AutoTokenizer.from_pretrained(pretrained_model_file, local_files_only=True)
+    with open("./dataset/test.json", "r", encoding="utf-8") as file:
+        data = json.load(file)
 
-if __name__ == "__main__":
-    load_data()
+    dataset = NewsDataset(data, tokenizer)
+
+    dataloader = DataLoader(dataset,batch_size=batch_size,shuffle=False)
+    return dataloader
+
